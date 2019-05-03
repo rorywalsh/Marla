@@ -20,10 +20,10 @@
 
 /**
  * @classdesc 
- * Creates an instance of Csound and compiles a file called lettuce.csd by default. Custom .csd files can also be loaded. 
+ * Creates an instance of Csound and compiles a file called marla.csd by default. Custom .csd files can also be loaded. 
  * 
  * @example
- * var lettuce = new Lettuce("Babylonjs");
+ * var marla = new Marla("Babylonjs");
  * 
  * @param {string} gameEngine Set the game engine being used, i.e., 'Babylonjs' or 'Phaser3'
  * @param {string} filename the .csd file to compile.
@@ -31,7 +31,7 @@
  */
 
 
-function Lettuce (gameEngine, filename = 'lettuce.csd') {
+function Marla (gameEngine, filename = 'marla.csd') {
 
     this.csoundStarted = false;
     this.csoundStarted = true;
@@ -56,7 +56,7 @@ function Lettuce (gameEngine, filename = 'lettuce.csd') {
     * Adds list of file from server to local file system. All files used by the audio engine
     * during a game must be loaded in advance of their use. 
     * @example
-    * lettuce.addFiles(new Array('1.wav', '2.wav', '3.wav')); 
+    * marla.addFiles(new Array('1.wav', '2.wav', '3.wav')); 
     * @param {array} files Array contained all files to be loaded.
     */        
     this.addFiles = function(files){
@@ -111,7 +111,7 @@ function Lettuce (gameEngine, filename = 'lettuce.csd') {
     * @param {number} options.speed Sets playback speed.
     * @param {number} options.amp Defaults to 1.
     * @param {number} options.delay Sets the amount of time that should pass before the sound plays. Defaults to 0.
-    * @param {number} options.index Set this to a number equal or greater to 0 to trigger specific files from the files array. The default value of -1 instructs Lettuce to pick a file at random.  
+    * @param {number} options.index Set this to a number equal or greater to 0 to trigger specific files from the files array. The default value of -1 instructs Marla to pick a file at random.  
     */
     this.playMultiSound = function(files, {delay=0, speed=1, amp=1, index=-1}={}){
         
@@ -143,20 +143,20 @@ function Lettuce (gameEngine, filename = 'lettuce.csd') {
     * @param {number} options.order Determines how the files will be played back. Set to `random` for random play back. The default is `forward` which will cause the files to play one after another.
     * @param {number} options.fadeIn Determines the length of amplitude fade in for source. Defaults to 0. Note this applies to the entire duration of the source, and not to the clip being played.
     * @param {number} options.fadeOut Determines the length of amplitude fade out for source. Defaults to 0. Note this applies to the entire duration of the source, and not to the clip being played.
-    * @param {number} options.transition Determines how the next sample will appear once `Lettuce.setNextFile()` is called. Defaults to "immediate", which will cause the next sample to start playing immediately. If this is set to "wait", the current sample will be allowed to finish before the next sample starts.     
+    * @param {number} options.transition Determines how the next sample will appear once `Marla.setNextFile()` is called. Defaults to "immediate", which will cause the next sample to start playing immediately. If this is set to "wait", the current sample will be allowed to finish before the next sample starts.     
 
 
     * @example
     * //BabylonJs
     * var source = new BABYLON.Mesh.CreateBox("Source", 2, scene);
-    * lettuce.addSource(source, 'pianoMood.wav', {amp:1});
+    * marla.addSource(source, 'pianoMood.wav', {amp:1});
     * 
     * //Phaser3
     * this.player = this.physics.add.image(400, 450, 'assets', 'player')
-    * lettuce.addSource(this.player, 'pianoMood.wav', {amp:1});
+    * marla.addSource(this.player, 'pianoMood.wav', {amp:1});
     *
-    * //to create a static sound source just pass a string as the object name, lettuce.update() will have no affect on sources created in this way
-    * lettuce.addSource(source, 'pianoMood.wav', {amp:1});
+    * //to create a static sound source just pass a string as the object name, marla.update() will have no affect on sources created in this way
+    * marla.addSource(source, 'pianoMood.wav', {amp:1});
     */
     this.addSource = function(source, clip, { amp = 1, scaling = 1, oneShot  = false, playOnAwake = true, 
                                             order="forward", fileIndex = 0, randomRange = 0, minInterval = 0, 
@@ -327,7 +327,7 @@ function Lettuce (gameEngine, filename = 'lettuce.csd') {
     }
 
     /**
-    * Set the amplitude of an audio source based on its proximity to a listener. This method gets called by the `Lettuce.update()` method.  
+    * Set the amplitude of an audio source based on its proximity to a listener. This method gets called by the `Marla.update()` method.  
     * 
     * @private
     * @param {object} source Source object.
@@ -406,7 +406,7 @@ function Lettuce (gameEngine, filename = 'lettuce.csd') {
     * Trigger an audio event via the Csound score line 
     * 
     * @example
-    * lettuce.sendEvent('i"SHOOT" 0 1 60'); 
+    * marla.sendEvent('i"SHOOT" 0 1 60'); 
     * @param {string} scoreEvent Event strings consisting of instrument name or number, followed by start time in seconds, a duration in seconds. All other parameters are optional and will depend on the custom sounds being triggered. 
     */
     this.sendEvent = function(scoreEvent)
@@ -425,7 +425,7 @@ function Lettuce (gameEngine, filename = 'lettuce.csd') {
     *     a1 oscili aEnv, cpsmidinn(p4)
     *     outs a1, a1
     * endin`;
-    * lettuce.addCustomSound(paddleSound);
+    * marla.addCustomSound(paddleSound);
     * @param {string} instr String containing instrument definition
     */  
     this.addCustomSound = function(instr)

@@ -25,9 +25,9 @@
               
                 
                 <li><a
-                  href='#lettuce'
+                  href='#marla'
                   class="h5 bold black caps toggle-sibling">
-                  Lettuce
+                  Marla
                   <span class='icon'>▸</span>
                 </a>
                 
@@ -95,6 +95,12 @@
                         href='#setsourcereverb'
                         class='regular pre-open'>
                         #setSourceReverb
+                      </a></li>
+                      
+                      <li><a
+                        href='#setsourcepan'
+                        class='regular pre-open'>
+                        #setSourcePan
                       </a></li>
                       
                       <li><a
@@ -167,9 +173,9 @@
               
                 
                 <li><a
-                  href='#lettuce'
+                  href='#marla'
                   class=" toggle-sibling">
-                  Lettuce
+                  Marla
                   <span class='icon'>▸</span>
                 </a>
                 
@@ -237,6 +243,12 @@
                         href='#setsourcereverb'
                         class='regular pre-open'>
                         #setSourceReverb
+                      </a></li>
+                      
+                      <li><a
+                        href='#setsourcepan'
+                        class='regular pre-open'>
+                        #setSourcePan
                       </a></li>
                       
                       <li><a
@@ -320,12 +332,13 @@
             <div class='keyline-top-not py2'>
   <section class='py2 clearfix'>
 
-    <h2 id='lettuce' class='mt0'>
-      Lettuce
+    <h2 id='marla' class='mt0'>
+      Marla
     </h2>
 
     
-      <p>Lettuce is an audio middleware for Javascript applications. Although it is written for the BabylonJS and Phaser3 game engines, it should work just as well as a standalone audio interface for any JS applications. The fact that Lettuce wraps the Csound audio programming language makes it an ideal solution for sound synthesis and procedural audio on the web. Lettuce is licensed under the The MIT License.     </p>
+      <img src="../imgs/marla.svg" style="width:20%" />
+<p>Marla is an audio middleware for Javascript applications. Although it is written for the BabylonJS and Phaser3 game engines, it should work just as well as a standalone audio interface for any JS applications. The fact that Marla wraps the Csound audio programming language makes it an ideal solution for sound synthesis and procedural audio on the web. Marla is licensed under the The MIT License.     </p>
 <p><a href="#running_examples">Running the examples</a></p>
 <p><a href="#usage">Usage</a></p>
 <p><a href="#oneshot_sounds">Playing one-shot sounds</a></p>
@@ -340,71 +353,79 @@
 <img src="../imgs/liveServer.gif" style="width:70%" />
 <br>
 <br>
+<br>
+<br>
 <p><a name="usage"></a></p>
 <h3>Usage</h3>
-<p>When it comes to using this framework with existing projects, the first thing to do is add the lettucejs folder to your project root directory. You will then need to add the <code>lettuce.js</code>, <code>lettuceInstrs.js</code> and <code>csound.js</code> scripts to your document body. The <code>lettuce.csd</code> file should be placed one folder up from the <code>lettucejs</code> directory. </p>
-<pre class='hljs'>&lt;script src=<span class="hljs-string">"../csound/csound.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
-&lt;script src=<span class="hljs-string">"../lettuce.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
-&lt;script src=<span class="hljs-string">"../lettuceInstrs.js"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></pre>
-<p>Once the scripts have been included a new Lettuce object will beed to be created. This can be done in the <code>didModuleLoad()</code> function that gets called when the sound engine has finished loading all relevant sound modules. In the code below, the lettuce object is created and the default audio assets directory is set. In this instance Lettuce is told the "Phaser3" game engine is to be used. You can also specify "BabylonJS". Setting the game engine provides Lettuce with the information it needs to carry out correct amplitude scaling based on positional vectors. Following the creation of the Lettuce object a call is made to <a href="/docs/index.html#addfiles"><code>Lettuce.addFiles()</code></a>. This function adds all the sound files needed for your game to the local file system. You must add all sound files you intend to use in this manner. After the files have been added, a call to <a href="/docs/index.html#start"><code>Lettuce.start()</code></a> will start the audio. </p>
-<pre class='hljs'><span class="hljs-keyword">var</span> lettuce;
+<p>When it comes to using this framework with existing projects, the first thing to do is add the lettucejs folder to your project root directory. You will then need to add the <code>marla.js</code>, <code>marlaInstrs.js</code> and <code>csound.js</code> scripts to your document body. The <code>marla.csd</code> file should be placed one folder up from the <code>lettucejs</code> directory. </p>
+<pre class='hljs'>&lt;script src=<span class="hljs-string">"../csound/csound.js"</span>&gt; <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+&lt;script src=<span class="hljs-string">"../marla.js"</span>&gt; <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+&lt;script src=<span class="hljs-string">"../marlaInstrs.js"</span>&gt; <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></pre>
+<p>Once the scripts have been included a new Marla object will beed to be created. This can be done in the <code>didModuleLoad()</code> function that gets called when the sound engine has finished loading all relevant sound modules. In the code below, the marla object is created and the default audio assets directory is set. In this instance Marla is told the "Phaser3" game engine is to be used. You can also specify "BabylonJS". Setting the game engine provides Marla with the information it needs to carry out correct amplitude scaling based on positional vectors. Following the creation of the Marla object a call is made to <a href="/docs/index.html#addfiles"><code>Marla.addFiles()</code></a>. This function adds all the sound files needed for your game to the local file system. You must add all sound files you intend to use in this manner. After the files have been added, a call to <a href="/docs/index.html#start"><code>Marla.start()</code></a> will start the audio. </p>
+<pre class='hljs'><span class="hljs-keyword">var</span> marla;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moduleDidLoad</span>(<span class="hljs-params"></span>) </span>{          
-    lettuce = <span class="hljs-keyword">new</span> Lettuce(<span class="hljs-string">"Phaser3"</span>);
-    lettuce.setAudioDirectory(<span class="hljs-string">"../audio"</span>);
-    lettuce.addFiles(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'bestSoundEver.mp3'</span>));
-    lettuce.start();
+    marla = <span class="hljs-keyword">new</span> Marla(<span class="hljs-string">"Phaser3"</span>);
+    marla.setAudioDirectory(<span class="hljs-string">"../audio"</span>);
+    marla.addFiles(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'bestSoundEver.mp3'</span>));
+    marla.start();
 }</pre>
+<br>
+<br>
 <br>
 <br>
 <p><a name="oneshot_sounds"></a></p>
 <h3>Playing one-shot sounds</h3>
-<p>To play a one-shot sound just call <a href="/docs/index.html#playsound"><code>Lettuce.playSound(filename)</code></a>. Ensure that the file you wish to play has already been loaded using the <a href="/docs/index.html#addfiles"><code>Lettuce.addFiles()</code></a> function. The playSound function also takes some optional parameters which are described in the reference manual. In the code below the sound is triggered with an amplitude reduction of .5, a playback speed of half full rate, and a short time delay of .1 seconds.  </p>
+<p>To play a one-shot sound just call <a href="/docs/index.html#playsound"><code>Marla.playSound(filename)</code></a>. Ensure that the file you wish to play has already been loaded using the <a href="/docs/index.html#addfiles"><code>Marla.addFiles()</code></a> function. The playSound function also takes some optional parameters which are described in the reference manual. In the code below the sound is triggered with an amplitude reduction of .5, a playback speed of half full rate, and a short time delay of .1 seconds.  </p>
 <pre class='hljs'><span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.keys.A.isDown)
 {   
-    lettuce.playSound(<span class="hljs-string">'bestSoundEver.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">.5</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">.1</span>, <span class="hljs-attr">speed</span>:<span class="hljs-number">.5</span>});    
+    marla.playSound(<span class="hljs-string">'bestSoundEver.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">.5</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">.1</span>, <span class="hljs-attr">speed</span>:<span class="hljs-number">.5</span>});    
 }</pre>
-<p>Multi-sample one-shot sounds can be created using the <a href="/docs/index.html#playmultisound"><code>Lettuce.playMultiSound()</code></a> function. This function takes an array of audio files rather than a single one. Lettuce will randomly choose one file from the list to play each time the function is called. As is the case with all sound playing functions, you must make certain that you have added the files using the <a href="/docs/index.html#addfiles"><code>Lettuce.addFIles()</code></a> function. </p>
+<p>Multi-sample one-shot sounds can be created using the <a href="/docs/index.html#playmultisound"><code>Marla.playMultiSound()</code></a> function. This function takes an array of audio files rather than a single one. Marla will randomly choose one file from the list to play each time the function is called. As is the case with all sound playing functions, you must make certain that you have added the files using the <a href="/docs/index.html#addfiles"><code>Marla.addFIles()</code></a> function. </p>
 <pre class='hljs'><span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.keys.A.isDown)
 {   
-    lettuce.playMultiSound(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'1.ogg'</span>, <span class="hljs-string">'2.ogg'</span>, <span class="hljs-string">'3.ogg'</span>, <span class="hljs-string">'4.ogg'</span>, <span class="hljs-string">'5.ogg'</span>), {<span class="hljs-attr">amp</span>:<span class="hljs-number">.5</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">.1</span>, <span class="hljs-attr">speed</span>:<span class="hljs-number">.5</span>});    
+    marla.playMultiSound(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'1.ogg'</span>, <span class="hljs-string">'2.ogg'</span>, <span class="hljs-string">'3.ogg'</span>, <span class="hljs-string">'4.ogg'</span>, <span class="hljs-string">'5.ogg'</span>), {<span class="hljs-attr">amp</span>:<span class="hljs-number">.5</span>, <span class="hljs-attr">delay</span>:<span class="hljs-number">.1</span>, <span class="hljs-attr">speed</span>:<span class="hljs-number">.5</span>});    
 }</pre>
+<br>
+<br>
 <br>
 <br>
 <p><a name="sources_listeners"></a></p>
 <h3>Sources and listeners</h3>
 <p>If you wish to avail of automatic amplitude scaling based on proximity of objects to each other, you will need to use sources and a listener. There is only one listener per scene, and it is usually the camera object. In the code below, a BabylonJS camera object is set to be the listener.  </p>
 <pre class='hljs'><span class="hljs-keyword">var</span> camera = <span class="hljs-keyword">new</span> BABYLON.FreeCamera(<span class="hljs-string">"FreeCamera"</span>, <span class="hljs-keyword">new</span> BABYLON.Vector3(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>, <span class="hljs-number">-80</span>), scene);
-lettuce.addListener(camera);</pre>
+marla.addListener(camera);</pre>
 <blockquote>
 <p><strong><em>Note:</em></strong> <em>if you plan to manage amplitude attenuation yourself you don't need add a listener. It's sole purpose is to provide positional information for sources.</em> </p>
 </blockquote>
-<p>Any number of sources can be added to a scene. Once created, they can be controlled using a range of special source functions, such as <a href="/docs/index.html#setsourceamplitude"><code>Lettuce.setSourceAmplitude()</code></a> or <a href="/docs/index.html#setsourcecutoff"><code>Lettuce.setSourceCutoff()</code></a>. Sources can be either dynamic, meaning their amplitude will be constantly updated based on their position relative to the scene's listener, or static, meaning their amplitude levels will need to be managed manually. To add a dynamic source to a scene, call <a href="/docs/index.html#addsource"><code>Lettuce.addSource()</code></a>. In the code below, the 'bestSoundEver.ogg' file is attached to the radio game object. Sources can be set up to play just once if the <code>oneShot</code> parameter is set to true. </p>
+<p>Any number of sources can be added to a scene. Once created, they can be controlled using a range of special source functions, such as <a href="/docs/index.html#setsourceamplitude"><code>Marla.setSourceAmplitude()</code></a> or <a href="/docs/index.html#setsourcecutoff"><code>Marla.setSourceCutoff()</code></a>. Sources can be either dynamic, meaning their amplitude will be constantly updated based on their position relative to the scene's listener, or static, meaning their amplitude levels will need to be managed manually. To add a dynamic source to a scene, call <a href="/docs/index.html#addsource"><code>Marla.addSource()</code></a>. In the code below, the 'bestSoundEver.ogg' file is attached to the radio game object. Sources can be set up to play just once if the <code>oneShot</code> parameter is set to true. </p>
 <pre class='hljs'><span class="hljs-keyword">var</span> radio = <span class="hljs-keyword">new</span> BABYLON.MeshBuilder.CreateBox(<span class="hljs-string">'Radio'</span>, {<span class="hljs-attr">height</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">depth</span>: <span class="hljs-number">0.5</span>}, scene);
 radio.position = <span class="hljs-keyword">new</span> BABYLON.Vector3(<span class="hljs-number">-2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-20</span>);
-lettuce.addSource(radio, <span class="hljs-string">'bestSoundEver.ogg'</span>);</pre>
-<p><a href="/docs/index.html#update"><code>Lettuce.update()</code></a> needs to be called in the game's main loop in order for to carry out automatic amplitude scaling based on the distance between sources and a listener. If <a href="/docs/index.html#update"><code>Lettuce.update()</code></a> is not called all sound will stay at the same amplitude until <a href="/docs/index.html#setsourceamplitude"><code>Lettuce.setSourceAmplitude()</code></a> is called.</p>
-<p>To add a static sound source simply pass a "name" string to the first parameter of the <a href="/docs/index.html#addsource"><code>Lettuce.addSource()</code></a> function. The same "name" string should be used when controlling any aspect of the source. The code below shows an example a static sound source which will play at a constant level for the duration of the game. Static sound sources are useful for background music and sounds that don't need to have their amplitudes constantly readjusted. </p>
-<pre class='hljs'>lettuce.addSource(<span class="hljs-string">"menu"</span>, <span class="hljs-string">"menu.wav"</span>);</pre>
+marla.addSource(radio, <span class="hljs-string">'bestSoundEver.ogg'</span>);</pre>
+<p><a href="/docs/index.html#update"><code>Marla.update()</code></a> needs to be called in the game's main loop in order for to carry out automatic amplitude scaling based on the distance between sources and a listener. If <a href="/docs/index.html#update"><code>Marla.update()</code></a> is not called all sound will stay at the same amplitude until <a href="/docs/index.html#setsourceamplitude"><code>Marla.setSourceAmplitude()</code></a> is called.</p>
+<p>To add a static sound source simply pass a "name" string to the first parameter of the <a href="/docs/index.html#addsource"><code>Marla.addSource()</code></a> function. The same "name" string should be used when controlling any aspect of the source. The code below shows an example a static sound source which will play at a constant level for the duration of the game. Static sound sources are useful for background music and sounds that don't need to have their amplitudes constantly readjusted. </p>
+<pre class='hljs'>marla.addSource(<span class="hljs-string">"menu"</span>, <span class="hljs-string">"menu.wav"</span>);</pre>
 <blockquote>
 <p>Sound sources can be also be given named Csound instruments to process. See <a href="#named_instrument">below</a> for further details.</p>
 </blockquote>
 <br>
 <br>
+<br>
+<br>
 <p><a name="source_types"></a></p>
 <h3>Controlling sources</h3>
-<p>Source sources can be set up in a multitude of different ways. Optional parameters can determine if they start playing when the game does, or if they should play as a one-shot sample, in which case the the <a href="/docs/index.html#playsource"><code>Lettuce.playSource()</code></a> function can be used to trigger it at any point during the game. </p>
+<p>Source sources can be set up in a multitude of different ways. Optional parameters can determine if they start playing when the game does, or if they should play as a one-shot sample, in which case the the <a href="/docs/index.html#playsource"><code>Marla.playSource()</code></a> function can be used to trigger it at any point during the game. </p>
 <p>Other parameters allow for distance scaling, amplitude scaling, and playback speed. A <code>randomInterval</code> parameter can be used to trigger random playback of samples. The <code>minInterval</code> parameter sets the minimum time between random plays.</p>
 <blockquote>
 <p>The minInterval parameter only works when the randomInterval is set to a value greater than 0</p>
 </blockquote>
 <br>
-If an array of sound files is passed to the `clip` parameter, Lettuce will automatically sequence the files. They will play one after another by default, but can also be set to play randomly.
-<p>A source may have a new file set dynamically at any point during the game. The parameters for fade in and out will determine how much of an overlap takes place when a new file is triggered. The <code>transition</code> parameter will set how the file starts playing. This is set to <code>immediate</code> by default. This means as soon as <a href="/docs/index.html#setsourcefile"><code>Lettuce.setSourceFile()</code></a> is called, the new file will start playing. If transition is set to <code>wait</code>, the current sample will finish playing back before the new one starts, depending of course on the fade times. </p>
+If an array of sound files is passed to the `clip` parameter, Marla will automatically sequence the files. They will play one after another by default, but can also be set to play randomly.
+<p>A source may have a new file set dynamically at any point during the game. The parameters for fade in and out will determine how much of an overlap takes place when a new file is triggered. The <code>transition</code> parameter will set how the file starts playing. This is set to <code>immediate</code> by default. This means as soon as <a href="/docs/index.html#setsourcefile"><code>Marla.setSourceFile()</code></a> is called, the new file will start playing. If transition is set to <code>wait</code>, the current sample will finish playing back before the new one starts, depending of course on the fade times. </p>
 <p><a name="procedural_events"></a></p>
 <h3>Writing procedural events</h3>
-<p>Although this framework provides various functions for playing back and controlling audio events, its real strenght lies in the fact that you can easily expose the power of Csound. This makes it very simple to create sound events on the fly. The simplest way to do this is to code some Csound instruments in the lettuce.csd file that automatically gets compiled when the game starts. Once the instrument is compiled it cane be triggered at run time using the
-<code>Lettuce.sendEvent(string)</code> function.  </p>
-<p>Procedural sound can also be added on the fly using the <code>Lettuce.addCustomSound()</code> function. For example, the following code creates a simple custom sound. The Csound code generates a simple sine wave with an exponential decay. </p>
+<p>Although this framework provides various functions for playing back and controlling audio events, its real strenght lies in the fact that you can easily expose the power of Csound. This makes it very simple to create sound events on the fly. The simplest way to do this is to code some Csound instruments in the marla.csd file that automatically gets compiled when the game starts. Once the instrument is compiled it cane be triggered at run time using the
+<code>Marla.sendEvent(string)</code> function.  </p>
+<p>Procedural sound can also be added on the fly using the <code>Marla.addCustomSound()</code> function. For example, the following code creates a simple custom sound. The Csound code generates a simple sine wave with an exponential decay. </p>
 <pre class='hljs'><span class="hljs-keyword">const</span> paddleSound =<span class="hljs-string">`
     instr PADDLE
         iFreq = p4
@@ -413,11 +434,11 @@ If an array of sound files is passed to the `clip` parameter, Lettuce will autom
         a1 oscili aEnv, cpsmidinn(iFreq)
         outs a1/kNum, a1/kNum
     endin`</span>;
-lettuce.addCustomSound(paddleSound);</pre>
+marla.addCustomSound(paddleSound);</pre>
 <p>When triggering this event, one must be careful to pass a frequency value as its 4th parameter. In this way the pitch of the sound can be dynamically altered each time its played. In the code below the custom sound is triggered each time a player presses the 'A' key. </p>
 <pre class='hljs'><span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.keys.A.isDown)
 {   
-    lettuce.sendEvent(<span class="hljs-string">'i"PADDLE" 0 1 '</span>+(<span class="hljs-number">50</span>+player.x).toString());    
+    marla.sendEvent(<span class="hljs-string">'i"PADDLE" 0 1 '</span>+(<span class="hljs-number">50</span>+player.x).toString());    
 }</pre>
 <p><a name="realtime_sounds"></a></p>
 <h3>Controlling sounds in real time</h3>
@@ -428,22 +449,30 @@ lettuce.addCustomSound(paddleSound);</pre>
         a1 oscili aEnv, kFreq
         outs a1, a1
     endin`</span>;
-lettuce.addCustomSound(paddleSound);</pre>
-<p>The channel can be updated in the game loop by calling <code>Lettuce.setChannel(channel, value)</code>.</p>
+marla.addCustomSound(paddleSound);</pre>
+<p>The channel can be updated in the game loop by calling <code>Marla.setChannel(channel, value)</code>.</p>
 <pre class='hljs'><span class="hljs-comment">//main rendering/game loop</span>
 gameEngine.update(){
-    lettuce.setChannel(<span class="hljs-string">'frequency'</span>, player.x);
+    marla.setChannel(<span class="hljs-string">'frequency'</span>, player.x);
 }</pre>
+<br>
+<br>
+<br>
+<br>
 <p><a name="other_js_engines"></a></p>
 <h3>Adding support for other JS game engines</h3>
 <p>This system is extremely lightweight, and is provided merely as a first step towards creating bespoke sound engines for JS based game.  </p>
-<p>Apart from <code>Lettuce.addListener()</code> and the various <code>Lettuce::addSource()</code>, all of the functions in this framework are engine agnostic. These methods however work with objects that contains a name and position vector. If you want to add support for another game engine that doesn't support game objects, you will need to create a new class that contains a <code>name</code> and some kind of positional vector. You can then modify the <code>Lettuce.setSourceAmplitude(source, listener, scale)</code> function to set the correct distance between objects. Alternatively you can just use a "name" string with any of the <code>addSource()</code> functions and control amplitude manually. </p>
+<p>Apart from <code>Marla.addListener()</code> and the various <code>Marla::addSource()</code>, all of the functions in this framework are engine agnostic. These methods however work with objects that contains a name and position vector. If you want to add support for another game engine that doesn't support game objects, you will need to create a new class that contains a <code>name</code> and some kind of positional vector. You can then modify the <code>Marla.setSourceAmplitude(source, listener, scale)</code> function to set the correct distance between objects. Alternatively you can just use a "name" string with any of the <code>addSource()</code> functions and control amplitude manually. </p>
+<br>
+<br>
+<br>
+<br>
 <p><a name="named_instrument"></a></p>
 <h3>Using named instruments as sound clips</h3>
-<p>If for example your lettuce.csd file contains a Csound instrument called <code>CHURCH_BELLS</code>, and would like Lettuce to automatically scale it's amplitude, you can pass the instrument name to <a href="/docs/index.html#addsource"><code>Lettuce.addSource()</code></a> in place of a sound file. In the following code we do just that.</p>
+<p>If for example your marla.csd file contains a Csound instrument called <code>CHURCH_BELLS</code>, and would like Marla to automatically scale it's amplitude, you can pass the instrument name to <a href="/docs/index.html#addsource"><code>Marla.addSource()</code></a> in place of a sound file. In the following code we do just that.</p>
 <pre class='hljs'><span class="hljs-keyword">var</span> radio = <span class="hljs-keyword">new</span> BABYLON.MeshBuilder.CreateBox(<span class="hljs-string">'Radio'</span>, {<span class="hljs-attr">height</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">width</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">depth</span>: <span class="hljs-number">0.5</span>}, scene);
 radio.position = <span class="hljs-keyword">new</span> BABYLON.Vector3(<span class="hljs-number">-2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-20</span>);
-lettuce.addSource(radio, <span class="hljs-string">"CHURCH_BELLS"</span>);</pre>
+marla.addSource(radio, <span class="hljs-string">"CHURCH_BELLS"</span>);</pre>
 <blockquote>
 <p><strong><em>Note:</em></strong> <em>You cannot pass p-fields to any Csound instruments added as sources in the manner described above. If you want to have any real-time control over parameters use named channels.</em> </p>
 </blockquote>
@@ -459,8 +488,8 @@ lettuce.addSource(radio, <span class="hljs-string">"CHURCH_BELLS"</span>);</pre>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='lettuce'>
-      Lettuce
+    <h3 class='fl m0' id='marla'>
+      Marla
     </h3>
     
     
@@ -468,7 +497,7 @@ lettuce.addSource(radio, <span class="hljs-string">"CHURCH_BELLS"</span>);</pre>
   
 
   
-    <div class='pre p1 fill-light mt0'>new Lettuce(gameEngine: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, filename: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+    <div class='pre p1 fill-light mt0'>new Marla(gameEngine: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, filename: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
   
   
 
@@ -495,7 +524,7 @@ lettuce.addSource(radio, <span class="hljs-string">"CHURCH_BELLS"</span>);</pre>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>filename</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-            = <code>&#39;lettuce.csd&#39;</code>)</code>
+            = <code>&#39;marla.csd&#39;</code>)</code>
 	    the .csd file to compile.
 
           </div>
@@ -515,7 +544,7 @@ lettuce.addSource(radio, <span class="hljs-string">"CHURCH_BELLS"</span>);</pre>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> lettuce = <span class="hljs-keyword">new</span> Lettuce(<span class="hljs-string">"Babylonjs"</span>);</pre>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> marla = <span class="hljs-keyword">new</span> Marla(<span class="hljs-string">"Babylonjs"</span>);</pre>
     
   
 
@@ -638,7 +667,7 @@ during a game must be loaded in advance of their use.</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>lettuce.addFiles(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'1.wav'</span>, <span class="hljs-string">'2.wav'</span>, <span class="hljs-string">'3.wav'</span>));</pre>
+      <pre class='p1 overflow-auto round fill-light'>marla.addFiles(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-string">'1.wav'</span>, <span class="hljs-string">'2.wav'</span>, <span class="hljs-string">'3.wav'</span>));</pre>
     
   
 
@@ -970,7 +999,7 @@ during a game must be loaded in advance of their use.</p>
   
     (default <code>-1</code>)
   </td>
-  <td class='break-word'><span>Set this to a number equal or greater to 0 to trigger specific files from the files array. The default value of -1 instructs Lettuce to pick a file at random.
+  <td class='break-word'><span>Set this to a number equal or greater to 0 to trigger specific files from the files array. The default value of -1 instructs Marla to pick a file at random.
 </span></td>
 </tr>
 
@@ -1242,7 +1271,7 @@ during a game must be loaded in advance of their use.</p>
     (default <code>&#39;immediate&#39;</code>)
   </td>
   <td class='break-word'><span>Determines how the next sample will appear once 
-<code>Lettuce.setNextFile()</code>
+<code>Marla.setNextFile()</code>
  is called. Defaults to "immediate", which will cause the next sample to start playing immediately. If this is set to "wait", the current sample will be allowed to finish before the next sample starts.
 </span></td>
 </tr>
@@ -1289,14 +1318,14 @@ during a game must be loaded in advance of their use.</p>
       
       <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//BabylonJs</span>
 <span class="hljs-keyword">var</span> source = <span class="hljs-keyword">new</span> BABYLON.Mesh.CreateBox(<span class="hljs-string">"Source"</span>, <span class="hljs-number">2</span>, scene);
-lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">1</span>});
+marla.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">1</span>});
 
 <span class="hljs-comment">//Phaser3</span>
 <span class="hljs-keyword">this</span>.player = <span class="hljs-keyword">this</span>.physics.add.image(<span class="hljs-number">400</span>, <span class="hljs-number">450</span>, <span class="hljs-string">'assets'</span>, <span class="hljs-string">'player'</span>)
-lettuce.addSource(<span class="hljs-keyword">this</span>.player, <span class="hljs-string">'pianoMood.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">1</span>});
+marla.addSource(<span class="hljs-keyword">this</span>.player, <span class="hljs-string">'pianoMood.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">1</span>});
 
-<span class="hljs-comment">//to create a static sound source just pass a string as the object name, lettuce.update() will have no affect on sources created in this way</span>
-lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">1</span>});</pre>
+<span class="hljs-comment">//to create a static sound source just pass a string as the object name, marla.update() will have no affect on sources created in this way</span>
+marla.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<span class="hljs-attr">amp</span>:<span class="hljs-number">1</span>});</pre>
     
   
 
@@ -1476,7 +1505,7 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>setSourceReverb(source, reverb, fadeTime)</span>
+            <span class='code strong strong truncate'>setSourceReverb(source, feedback, cutoff, fadeTime)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1486,7 +1515,7 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
 
   <p>Add reverb to a sound source.</p>
 
-    <div class='pre p1 fill-light mt0'>setSourceReverb(source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, reverb: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, fadeTime: any)</div>
+    <div class='pre p1 fill-light mt0'>setSourceReverb(source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, feedback: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, cutoff: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, fadeTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
   
   
 
@@ -1504,7 +1533,7 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    Listener object
+	    Source object
 
           </div>
           
@@ -1512,8 +1541,8 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>reverb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    length of time in seconds
+            <span class='code bold'>feedback</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Set the amount of reverb between 0 and 1. 1
 
           </div>
           
@@ -1521,9 +1550,99 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>fadeTime</span> <code class='quiet'>(any
+            <span class='code bold'>cutoff</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Sets the cutoff frequency of the low-pass filters in the reverb feedback loop
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fadeTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
             = <code>0</code>)</code>
-	    
+	    Total length of time for change to occur
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='setsourcepan'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>setSourcePan(source, position, fadeTime)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Add reverb to a sound source.</p>
+
+    <div class='pre p1 fill-light mt0'>setSourcePan(source: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>, position: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, fadeTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
+	    Source object
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>position</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Set the position of the source. -1: full to the left, 0: centred, and 1: full to the right
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fadeTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>0</code>)</code>
+	    Total length of time for change to occur
+
           </div>
           
         </div>
@@ -1583,7 +1702,7 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>)</code>
-	    Listener object
+	    Source object
 
           </div>
           
@@ -2198,7 +2317,7 @@ lettuce.addSource(source, <span class="hljs-string">'pianoMood.wav'</span>, {<sp
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'>lettuce.sendEvent(<span class="hljs-string">'i"SHOOT" 0 1 60'</span>);</pre>
+      <pre class='p1 overflow-auto round fill-light'>marla.sendEvent(<span class="hljs-string">'i"SHOOT" 0 1 60'</span>);</pre>
     
   
 
@@ -2271,7 +2390,7 @@ instr PADDLE
     a1 oscili aEnv, cpsmidinn(p4)
     outs a1, a1
 endin`</span>;
-lettuce.addCustomSound(paddleSound);</pre>
+marla.addCustomSound(paddleSound);</pre>
     
   
 

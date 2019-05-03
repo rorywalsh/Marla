@@ -26,19 +26,19 @@
         
     </head>
    <body>
-    <script src="../lettucejs/csound.js"></script>
-    <script src="../lettucejs/lettuceInstruments.js"></script>
-    <script src="../lettucejs/lettuce.js"></script>
+    <script src="../marla/csound.js"></script>
+    <script src="../marla/marlaInstruments.js"></script>
+    <script src="../marla/marla.js"></script>
     
     <canvas id="renderCanvas" touch-action="none"></canvas>
     <script>
 
-var lettuce;
+var marla;
 function moduleDidLoad() {        
-    lettuce = new Lettuce('Babylonjs', '../lettuce.csd');
-    lettuce.setAudioDirectory("../audio");
-    lettuce.addFiles(new Array('pianoMood.wav', 'explosion01.wav'));
-    lettuce.start();
+    marla = new Marla('Babylonjs', '../marla.csd');
+    marla.setAudioDirectory("../audio");
+    marla.addFiles(new Array('pianoMood.wav', 'explosion01.wav'));
+    marla.start();
 
     setTimeout(function(){
         createGame();        
@@ -60,9 +60,9 @@ var createGame = function()
             
             var scene = new BABYLON.Scene(engine);
 
-            // lettuce.addSlider('Sourceamp', {min:0, max:1, step:0.01, value:0.1});
-            // lettuce.addSlider('amp2', {min:0, max:1, step:0.01, value:0.1});
-            // lettuce.addSlider('amp3', {min:0, max:1, step:0.01, value:0.1});
+            // marla.addSlider('Sourceamp', {min:0, max:1, step:0.01, value:0.1});
+            // marla.addSlider('amp2', {min:0, max:1, step:0.01, value:0.1});
+            // marla.addSlider('amp3', {min:0, max:1, step:0.01, value:0.1});
             
 
             // Lights
@@ -90,8 +90,8 @@ var createGame = function()
             source.checkCollisions = true;
 
             //create sound source
-            lettuce.addListener(camera);
-            lettuce.addSource(source, "SINE_TONE", {amp:1});
+            marla.addListener(camera);
+            marla.addSource(source, "SINE_TONE", {amp:1});
 
 
             
@@ -135,10 +135,10 @@ var createGame = function()
                 
                 if(collidedMesh.uniqueId === source.uniqueId) {
 
-                //    lettuce.setSourceAmplitude(source, 0);
-                //    // lettuce.removeSource(source)
-                //    // lettuce.setSourceSpeed(source, 2);
-                //    //lettuce.setSourceFadeIn(source, 1);
+                //    marla.setSourceAmplitude(source, 0);
+                //    // marla.removeSource(source)
+                //    // marla.setSourceSpeed(source, 2);
+                //    //marla.setSourceFadeIn(source, 1);
                 }
                 else
                     playSound = false
@@ -149,7 +149,7 @@ var createGame = function()
                     switch (event.keyCode) {
                         case 32:
                             cameraJump();
-                            // lettuce.playSound('1.wav');
+                            // marla.playSound('1.wav');
                         break;
                     }
             }   
@@ -184,7 +184,7 @@ var createGame = function()
             // Game/Render loop
 
             scene.onBeforeRenderObservable.add(()=>{
-                lettuce.update();
+                marla.update();
 
                 var ray = BABYLON.Ray.CreateNewFromTo(camera.position, source.position);
                 //BABYLON.RayHelper.CreateAndShow(ray, scene, new BABYLON.Color3(1, 0, 0));
@@ -194,10 +194,10 @@ var createGame = function()
                 var cutOff = 344 / Number(vectorsWorld[1].x-(vectorsWorld[0].x))
 
                 if (hit.pickedMesh.id == 'Barrier'){               
-                    lettuce.setSourceCutOff(source, cutOff);
+                    marla.setSourceCutOff(source, cutOff);
                 }
                 else{
-                    lettuce.setSourceCutOff(source, 22050);
+                    marla.setSourceCutOff(source, 22050);
                 }
             })
 

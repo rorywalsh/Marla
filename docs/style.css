@@ -1,13 +1,13 @@
 .documentation {
   font-family: Helvetica, sans-serif;
-  color: rgb(255, 255, 255);
+  color: rgb(97, 97, 97);
   line-height: 1.5;
   background: #f5f5f5;
 }
 
 .documentation pre {
   padding: 1rem;
-  background: #052E52;
+  background: rgb(55, 63, 113);
   color: #e6e1dc;
   font-size: 0.9rem;
 
@@ -23,8 +23,8 @@ td > code > a{
   font-weight: 700;
 }
 
-.bg-midnight { background: #052E52; }
-.dark-link a { color: #052E52; }
+.bg-midnight { background: #535EAA; }
+.dark-link a { color: #535EAA; }
 
 .black {
   color: #666;
@@ -34,12 +34,12 @@ td > code > a{
   background-color: #fff;
 }
 
-h4 {
-  margin: 20px 0 10px 0;
-}
 
 .documentation h3 {
-  color: #000;
+  background-color: #F99D1B;
+  color: #535EAA;
+  padding-left: 10px;
+  width:70%;
 }
 
 .border-bottom {

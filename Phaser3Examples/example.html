@@ -12,18 +12,18 @@
 </head>
 <body>
 <!-- <button id="startCsound"  style="font-size : 20px; position:relative; left:80px; top:80px;">Press to start</button> -->
-<script src="../lettucejs/csound.js"></script>
-<script src="../lettucejs/lettuceInstruments.js"></script>
-<script src="../lettucejs/lettuce.js"></script>
+<script src="../marla/csound.js"></script>
+<script src="../marla/marlaInstruments.js"></script>
+<script src="../marla/marla.js"></script>
 <script type="text/javascript">
 
-var lettuce;
+var marla;
 function moduleDidLoad() {          
-    lettuce = new Lettuce('Phaser3', 'lettuce.csd');
-    lettuce.setAudioDirectory("../audio");
+    marla = new Marla('Phaser3', 'marla.csd');
+    marla.setAudioDirectory("../audio");
 
-    lettuce.addFiles(new Array('pianoMood.wav', '1.wav', '2.wav', '3.wav', '4.wav', '5.wav', 'Guitar1.wav', 'Guitar2.wav', 'Guitar3.wav' ));
-    lettuce.start({logging:false});
+    marla.addFiles(new Array('pianoMood.wav', '1.wav', '2.wav', '3.wav', '4.wav', '5.wav', 'Guitar1.wav', 'Guitar2.wav', 'Guitar3.wav' ));
+    marla.start({logging:false});
 
     
     setTimeout(function(){
@@ -71,14 +71,14 @@ var Breakout = new Phaser.Class({
         this.paddle = this.physics.add.image(400, 450, 'assets', 'paddle1').setImmovable();
         this.paddle.name = 'paddle'
         //create sound source
-        lettuce.addListener(this.ball);
+        marla.addListener(this.ball);
 
-        lettuce.addSource(this.paddle, "pianoMood.wav", {fadeOut:5, scaling:0.001});
-        // lettuce.addSourceSequenced(this.ball,'Guitar1.wav',  {scaling:.00001});
-        // lettuce.addSourceArray(this.ball, new Array('1.wav', '2.wav', '3.wav', '4.wav'));
-        //lettuce.addSourceRandomPlayback(this.ball, 'pianoMood.wav', {scaling:.1, randomRange:10, minInterval:10, oneShot:true});
+        marla.addSource(this.paddle, "pianoMood.wav", {fadeOut:5, scaling:0.001});
+        // marla.addSourceSequenced(this.ball,'Guitar1.wav',  {scaling:.00001});
+        // marla.addSourceArray(this.ball, new Array('1.wav', '2.wav', '3.wav', '4.wav'));
+        //marla.addSourceRandomPlayback(this.ball, 'pianoMood.wav', {scaling:.1, randomRange:10, minInterval:10, oneShot:true});
 
-        // lettuce.playSound("pianoMood.mp3", 1, 1);
+        // marla.playSound("pianoMood.mp3", 1, 1);
         const paddleSound =`
         instr PADDLE    
             kNum active "PADDLE"
@@ -86,7 +86,7 @@ var Breakout = new Phaser.Class({
             a1 oscili aEnv, cpsmidinn(p4)
             outs a1/kNum, a1/kNum
         endin`;
-        lettuce.addCustomSound(paddleSound);
+        marla.addCustomSound(paddleSound);
 
         //  Our colliders
         this.physics.add.collider(this.ball, this.bricks, this.hitBrick, null, this);
@@ -99,31 +99,31 @@ var Breakout = new Phaser.Class({
         brick.disableBody(true, true);
 
         if(brick.frame.name === 'purple1'){
-            lettuce.setSourceCutOff(this.paddle, 1, 1);
-            // lettuce.setNextFile(this.paddle, "Guitar2.wav", {fadeIn:5, fadeOut:5, transition:"immediate"});
-            // lettuce.sendEvent('i"PADDLE" 0 2 70'); 
-            // lettuce.sendEvent('i"PADDLE" 0.5 2 70'); 
+            marla.setSourceCutOff(this.paddle, 1, 1);
+            // marla.setNextFile(this.paddle, "Guitar2.wav", {fadeIn:5, fadeOut:5, transition:"immediate"});
+            // marla.sendEvent('i"PADDLE" 0 2 70'); 
+            // marla.sendEvent('i"PADDLE" 0.5 2 70'); 
         }
         else if(brick.frame.name === 'silver1'){
-            lettuce.setSourceFile(this.paddle, "Guitar3.wav", {fadeIn:5, fadeOut:5});
-            // lettuce.sendEvent('i"PADDLE" 0 2 75');
-            lettuce.sendEvent('i"PADDLE" 0.5 2 75'); 
+            marla.setSourceFile(this.paddle, "Guitar3.wav", {fadeIn:5, fadeOut:5});
+            // marla.sendEvent('i"PADDLE" 0 2 75');
+            marla.sendEvent('i"PADDLE" 0.5 2 75'); 
         }   
         else if(brick.frame.name === 'yellow1'){
-            lettuce.sendEvent('i"PADDLE" 0 2 78');
-            lettuce.sendEvent('i"PADDLE" 0.5 2 78'); 
+            marla.sendEvent('i"PADDLE" 0 2 78');
+            marla.sendEvent('i"PADDLE" 0.5 2 78'); 
         }
         else if(brick.frame.name === 'green1'){
-            lettuce.sendEvent('i"PADDLE" 0 2 82');
-            lettuce.sendEvent('i"PADDLE" 0.5 2 82'); 
+            marla.sendEvent('i"PADDLE" 0 2 82');
+            marla.sendEvent('i"PADDLE" 0.5 2 82'); 
         }
         else if(brick.frame.name === 'red1'){
-            lettuce.sendEvent('i"PADDLE" 0 2 75');
-            lettuce.sendEvent('i"PADDLE" 0.5 2 75'); 
+            marla.sendEvent('i"PADDLE" 0 2 75');
+            marla.sendEvent('i"PADDLE" 0.5 2 75'); 
         }
         else if(brick.frame.name === 'blue1'){
-            lettuce.sendEvent('i"PADDLE" 0 2 82');
-            lettuce.sendEvent('i"PADDLE" 0.5 2 82');
+            marla.sendEvent('i"PADDLE" 0 2 82');
+            marla.sendEvent('i"PADDLE" 0.5 2 82');
         }
 
         if (this.bricks.countActive() === 0)
@@ -179,7 +179,7 @@ var Breakout = new Phaser.Class({
     update: function ()
     {
 
-        lettuce.update();
+        marla.update();
         
         if (this.keys.A.isDown)
         {   
