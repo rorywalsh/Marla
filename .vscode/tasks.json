@@ -1,0 +1,45 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build docs1",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group":"build",
+            "command": "documentation build --config docs.yml ${workspaceRoot}/lettucejs/lettuce.js --output ${workspaceRoot}/docs -f html"
+        },
+        {
+            "label": "build docs2",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group":"build",
+            "command": "cp ${workspaceRoot}/docs/site.js ${workspaceRoot}/docs/assets/site.js",
+        
+            "dependsOn": [
+                "build docs1",
+            ],
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "command": "cp ${workspaceRoot}/docs/style.css ${workspaceRoot}/docs/assets/style.css",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build docs2",
+            ],
+        },
+
+    ]
+}
