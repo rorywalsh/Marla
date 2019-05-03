@@ -1,6 +1,6 @@
 
 
-<img src="https://github.com/rorywalsh/Marla/blob/master/imgs/marla.svg" style="width:20%" />
+<img src="https://raw.githubusercontent.com/rorywalsh/Marla/master/imgs/marla.svg" style="width:20%" />
 
 Márla (pronounced *Mawerla*) is an audio middleware for Javascript applications. Although it is written for the BabylonJS and Phaser3 game engines, it should work just as well as a standalone audio interface for any JS applications. The fact that Marla wraps the Csound audio programming language makes it an ideal solution for sound synthesis and procedural audio on the web. Marla is licensed under the The MIT License.     
 
@@ -29,7 +29,7 @@ Márla (pronounced *Mawerla*) is an audio middleware for Javascript applications
 The easiest way to get going with this framework is to play around with the example projects provided. Clone the repository and from the project root directory start a local web server. Then open any of the examples provided in either the BabylonJS o Phaser3 folders. If Visual Studio Code is your main editor the 'Live Server' extension makes it simple to run folders as local servers. The following .gif outlines the steps required to start running one of the examples. 
 
 
-<img src="https://github.com/rorywalsh/Marla/blob/master/imgs/liveServer.gif" style="width:70%" />
+<img src="imgs/liveServer.gif" style="width:70%" />
 
 <br>
 <br>
