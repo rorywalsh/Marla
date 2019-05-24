@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Babylon Template</title>
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+            
+        </style>
+        <script src="../js/babylon.js"></script>
+        <script src="../js/babylonjs.loaders.min.js"></script>
+        <script src="../js/pep.js"></script>
+        
+    </head>
+   <body>
+    <script src="../marla/csound.js"></script>
+    <script src="../marla/marlaInstruments.js"></script>
+    <script src="../marla/marla.js"></script>
+    
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+    <script>
+
+
+alert("Use WASD keys to move around the scene. The amplitude of the audio source is scaled according to one's position.");
+
+var marla;
+function moduleDidLoad() {        
+    marla = new Marla('Babylonjs');
+    marla.setAudioDirectory("../audio");
+    marla.addFiles(new Array('Guitar1.ogg'));
+    marla.start();
+
+    setTimeout(function(){
+        createGame();        
+    }, 1000);
+}
+
+
+//wrap game code so that is doesn't load until everything else has. 
+var createGame = function()
+{
+        var canvas = document.getElementById("renderCanvas"); // Get the canvas element 
+        // canvas.style.width = "800px";
+        // canvas.style.height =   "400px"; 
+        var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+        /*********** this function is the only one you need to modify *************/
+        var createScene = function () 
+        {
+            
+            var scene = new BABYLON.Scene(engine);
+            // Lights
+            var light0 = new BABYLON.DirectionalLight("Omni", new BABYLON.Vector3(-2, -5, 2), scene);
+
+            // Need a free camera for collisions
+            var camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(10, 2, -80), scene);
+            camera.attachControl(canvas, true);
+            camera.keysUp.push(87);    //W
+            camera.keysDown.push(83)   //D
+            camera.keysLeft.push(65);  //A
+            camera.keysRight.push(68); //S            camera.speed = 1;
+            //Ground
+            var ground = BABYLON.Mesh.CreatePlane("ground", 1500.0, scene);
+            ground.material = new BABYLON.StandardMaterial("groundMat", scene);
+            ground.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+            ground.material.backFaceCulling = false;
+            ground.position = new BABYLON.Vector3(0, 0, 0);
+            ground.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+
+            //Simple box
+            var source = new BABYLON.Mesh.CreateBox("Source", 2, scene);
+            source.position = new BABYLON.Vector3(0, 1, 0);
+            source.checkCollisions = true;
+
+            //create sound source
+            marla.addListener(camera);
+            marla.addSource(source, "Guitar1.ogg", {amp:1});
+
+            //Set gravity for the scene (G force like, on Y-axis)
+            scene.gravity = new BABYLON.Vector3(0, -0.9, 0);
+
+            // Enable Collisions
+            scene.collisionsEnabled = true;
+
+            //Then apply collisions and gravity to the active camera
+            camera.checkCollisions = true;
+            camera.applyGravity = true;
+
+            //Set the ellipsoid around the camera (e.g. your player's size)
+            camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
+
+            //finally, say which mesh will be collisionable
+            ground.checkCollisions = true;
+
+            // Keyboard events
+            var inputMap ={};
+            scene.actionManager = new BABYLON.ActionManager(scene);
+            scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {								
+                inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+            }));
+            scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {								
+                inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+            }));
+	
+	       
+            
+            // Game/Render loop
+            scene.onBeforeRenderObservable.add(()=>{
+                marla.update();
+            })
+
+            return scene;
+        }
+
+        /******* End of the create scene function ******/    
+
+
+        var scene = createScene(); //Call the createScene function
+        // Register a render loop to repeatedly render the scene
+        engine.runRenderLoop(function () { 
+                scene.render();
+        });
+
+        // Watch for browser/canvas resize events
+        window.addEventListener("resize", function () { 
+                engine.resize();
+        });
+}
+    </script>
+   </body>
+
+</html> 

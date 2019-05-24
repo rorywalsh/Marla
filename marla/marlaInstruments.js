@@ -149,6 +149,11 @@ instr CREATE_SOUNDSOURCE
     kSpeed chnget SSpeed
     kSpeed portk kSpeed, kFadeTime
 
+
+    SPanPos strcat SChannel, "panPosition"
+    kPan chnget SPanPos
+    kPan portk kPan, kFadeTime
+
     SDistanceChannel strcat SChannel, "distance"
     kDistance chnget SDistanceChannel
     kDistance = kDistance*iScaling
@@ -165,13 +170,13 @@ instr CREATE_SOUNDSOURCE
         SNamedInstrument init ""
 
         if strindex(strget(p4), ".") != -1 then
-            puts "p4 is a filename; loading sound file as sound source", 1
+            // puts "p4 is a filename; loading sound file as sound source", 1
             iIsNamedInstrument = 0
 
         elseif strindex(strget(p4), ".") == -1 then
             iIsNamedInstrument = 1
             SNamedInstrument strcpy p4
-            puts "p4 is a string; loading named instrument as sound source", 1
+            // puts "p4 is a string; loading named instrument as sound source", 1
         endif
 
 
@@ -215,10 +220,13 @@ instr CREATE_SOUNDSOURCE
         kTime = (kTime>=kLength*sr ? 0 : kTime+ksmps)
 
         if changed2:k(SFile) == 1 then
+        printks "%s", 0, SFile
+        printk 1, 1
             kSignalEnd = 1
         endif
 
-        if kTime == (kLength*sr)  && kSignalEnd == 1 then
+        if kTime > (kLength*sr)-ksmps  && kSignalEnd == 1 then
+            printk 1000, 1
             SEvent  sprintfk {{i "CREATE_SOUNDSOURCE" 0 360000 "%s" "%s" %f %f %f %f %f %f %f "%s" %f %f}}, SFile, SChannel, p6, p7, p8, p9, p10, p11, p12, SDirection, iFileIndex, iTransition
             scoreline SEvent, 1
             kSignalEnd = 0
@@ -262,11 +270,11 @@ instr CREATE_SOUNDSOURCE
                         a2 tone a2, kCutOff
                         aLeft = (a1*aScale*kAmp)
                         aRight = (a2*aScale*kAmp)
-                        outs aLeft*aEnv, aRight*aEnv 
+                        outs (1-kPan)*(aLeft*aEnv), (aRight*aEnv*kPan)
                 else
                         a1 diskin2 SFilename, kSpeed, 0, 1
                         a1 tone a1, kCutOff
-                        outs a1*aScale*kAmp*aEnv, a1*aScale*kAmp*aEnv
+                        outs (1-kPan)*(a1*aScale*kAmp*aEnv), a1*aScale*kAmp*aEnv*kPan
                 endif
             endif
         endif

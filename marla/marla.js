@@ -31,7 +31,7 @@
  */
 
 
-function Marla (gameEngine, filename = 'marla.csd') {
+function Marla (gameEngine="BabylonJS", filename = '') {
 
     this.csoundStarted = false;
     this.csoundStarted = true;
@@ -50,6 +50,11 @@ function Marla (gameEngine, filename = 'marla.csd') {
     */
     this.setAudioDirectory = function(dir){
         this.audioDirectory = dir;
+    }
+
+
+    Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+        return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
     /**
@@ -77,14 +82,24 @@ function Marla (gameEngine, filename = 'marla.csd') {
     * @param {number} options.ksmps Sets the number of samples in control cycle. Decreasing this will reduce latency, but may result in dropouts and glitchy audio. Higher values should result in smoother playback, but can lead to higher latency.  
     * @param {number} options.logging Set to true to enable verbose logging of Csound during performance. Defaults to false.  
     */
-    this.start = function({ksmps=64, logging=false}){
+    this.start = function({ksmps=64, logging=false}={}){
         csound.Csound.setOption("--ksmps="+Number(ksmps).toString())
 
         if(logging == false)
             csound.Csound.setOption("-m0d");
 
-        csound.PlayCsd(filename);
+        if (filename.length>0)
+        {
+            csound.PlayCsd(filename);
+        }
+        else
+        {
+            csound.ReadScore('f0 z');
+            csound.Play();
+        }        
+        
         csound.CompileOrc(csd);
+        
         this.csoundStarted = true;     
 
     }
@@ -138,8 +153,8 @@ function Marla (gameEngine, filename = 'marla.csd') {
     * @param {float} options.scaling Sets a scaling factor. Values greater than 1 will cause greater amplitude attenuation. Values less than 1 will cause decreased attenuation. This usually needs some tweaking to get right, and will depend to a large extent on the game engine. 
     * @param {float} options.speed Sets a playback speed. 1 is the default and will cause no change in playback speed from original recording.  
     * @param {boolean} options.oneShot Setting to this true will cause the sound source to finish after a single play. Only works with sound files. 
-    * @param {float} options.randomRange A non-zero value here will cause the source to play at random intervals. The value passed here will determine the random range of delay before the next playback.
-    * @param {float} options.minInterval Sets the minimum amount of time to wait in seconds before a sound is repeated. This value is summed to the random value produced above to give the time interval between plays.  
+    * @param {float} options.randomMax A non-zero value here will cause the source to play at random intervals. The value passed here will determine the random range of delay before the next playback.
+    * @param {float} options.randomMin Sets the minimum amount of time to wait in seconds before a sound is repeated. This value is summed to the random value produced above to give the time interval between plays.  
     * @param {number} options.order Determines how the files will be played back. Set to `random` for random play back. The default is `forward` which will cause the files to play one after another.
     * @param {number} options.fadeIn Determines the length of amplitude fade in for source. Defaults to 0. Note this applies to the entire duration of the source, and not to the clip being played.
     * @param {number} options.fadeOut Determines the length of amplitude fade out for source. Defaults to 0. Note this applies to the entire duration of the source, and not to the clip being played.
@@ -159,7 +174,7 @@ function Marla (gameEngine, filename = 'marla.csd') {
     * marla.addSource(source, 'pianoMood.wav', {amp:1});
     */
     this.addSource = function(source, clip, { amp = 1, scaling = 1, oneShot  = false, playOnAwake = true, 
-                                            order="forward", fileIndex = 0, randomRange = 0, minInterval = 0, 
+                                            order="forward", fileIndex = 0, randomMax = 0, randomMin = 0, 
                                             fadeIn = 0, fadeOut = 0, speed = 1, transition = 'immediate'} = {})
     {
         
@@ -179,7 +194,7 @@ function Marla (gameEngine, filename = 'marla.csd') {
             sourceClip = clip.toString();
 
         csound.ReadScore('i"CREATE_SOUNDSOURCE" '+
-                            (randomRange ==0 ? '0' : (delay = Math.random()*randomRange)).toString() + //p2
+                            (randomMax ==0 ? '0' : (delay = Math.random()*randomMax)).toString() + //p2
                             ' [7*24*3600] "'+                           //p3
                             sourceClip+'" '+                       //p4
                             '"'+source.name.toString()+'" '+            //p5
@@ -188,8 +203,8 @@ function Marla (gameEngine, filename = 'marla.csd') {
                             fadeIn.toString() + ' ' +                   //p8
                             fadeOut.toString() + ' ' +                  //p9
                             (playOnAwake === true ? '1' : '0') + ' ' +  //p10 
-                            Number(randomRange).toString() + ' ' +      //p11
-                            Number(minInterval).toString() +            //p12
+                            Number(randomMax).toString() + ' ' +      //p11
+                            Number(randomMin).toString() +            //p12
                             ' "'+order.toString()+'" '+                 //p13
                             fileIndex.toString()+' '                   //p14
                             +(transition==="branching" ? '1' : '2').toString() //p15      
@@ -200,6 +215,7 @@ function Marla (gameEngine, filename = 'marla.csd') {
         csound.SetChannel(source.name+'speed', speed);
         csound.SetChannel(source.name+'remove', 0);
         csound.SetChannel(source.name+'cutoff', 22050);
+        csound.SetChannel(source.name+'panPosition', .5);
 
         source.transition = transition;
         source.clip = sourceClip;
@@ -264,11 +280,11 @@ function Marla (gameEngine, filename = 'marla.csd') {
     * Add reverb to a sound source. 
     * 
     * @param {object} source Source object 
-    * @param {number} position Set the position of the source. -1: full to the left, 0: centred, and 1: full to the right
+    * @param {number} position Set the position of the source. 0: full to the left, .5: centred, and 1: full to the right
     * @param {number} fadeTime Total length of time for change to occur 
     * 
     */
-    this.setSourcePan = function(source, position, fadeTime=0){
+    this.setSourcePanPosition = function(source, position, fadeTime=0){
         if(this.csoundStarted == true){
             csound.SetChannel(source.name+'fadeTime', fadeTime);
             csound.SetChannel(source.name+'panPosition', position);
@@ -309,20 +325,40 @@ function Marla (gameEngine, filename = 'marla.csd') {
     * @param {number} options.fadeOut Determines the length of amplitude fade out for source. Defaults to 0. Note this applies to the entire duration of the source, and not to the clip being played.
     * @param {number} options.transition Determines how the next sample will appear. Defaults to "immediate", which will cause the next sample to start playing immediately. If this is set to "wait", the current sample will be allowed to finish before the next sample starts.     
     */
-    this.setSourceFile = function(source, filename, {fadeOut = 0, fadeIn = 0, transition = "immediate"})
+    this.setSourceFile = function(source, filename, {fadeOut = 0.001, fadeIn = 0.001, transition = "immediate"}={})
     {
         if(this.csoundStarted == true){
-            console.log(source.clip)
-            console.log(filename)
+
+            if (typeof source === 'string' || source instanceof String)
+            {
+                source = this.getSourceFromName(source);
+            }
+            
             if(filename != source.clip){
                 source.clip = filename;
                 csound.SetControlChannel(source.name+"fadeIn", fadeIn);
                 csound.SetControlChannel(source.name+"fadeOut", fadeOut);
                 csound.SetStringChannel(source.name+'nextFile', filename);
-                console.log(source.transition);
+
                 if(transition === "immediate")
                     csound.SetChannel(source.name+'remove', 1);
             }
+        }
+    }
+
+    /**
+    * Return a source based on a name string  
+    * 
+    * @private
+    * @param {string} name Source name.
+    */
+
+    this.getSourceFromName = function(name)
+    {
+        for ( var i = 0 ; i < this.sources.length ; i++)
+        {
+            if(this.sources[i].name === name)
+                return this.sources[i];
         }
     }
 
@@ -339,6 +375,16 @@ function Marla (gameEngine, filename = 'marla.csd') {
             if (this.gameEngine === 'Babylonjs'){
                 const distance = BABYLON.Vector3.Distance(listener.position, source.position)
                 csound.SetChannel(source.name+'distance', distance*scale);
+
+                let listenerVec = listener.getDirection(BABYLON.Axis.Z);
+                listenerVec.y = 0; //horizontal components only      
+                listenerVec.normalize();
+                let sourceVec = source.position.subtract(listener.position);
+                sourceVec.y = 0;
+                sourceVec.normalize();
+                let direction = BABYLON.Vector3.Cross(listenerVec, sourceVec).y;
+                var panPos = (direction).map(-1, 1, 0, 1);
+                csound.SetChannel(source.name+'panPosition', panPos);
             }
             else{
                 const distance = Phaser.Math.Distance.Between(listener.x, listener.y, source.x, source.y);
@@ -398,7 +444,9 @@ function Marla (gameEngine, filename = 'marla.csd') {
     this.update = function(){
         for ( var i = 0 ; i < this.sources.length ; i++){
             if(this.sources[i].static != true)
+            {
                 this.setSoundSourceAmplitude(this.sources[i], this.listener, this.scale);
+            }
         }
     }
 
